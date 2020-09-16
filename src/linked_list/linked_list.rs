@@ -1,4 +1,5 @@
 use super::errors::*;
+use super::iter_mut::*;
 use super::node::*;
 
 pub struct LinkedList<T> {
@@ -8,7 +9,10 @@ pub struct LinkedList<T> {
 
 impl<T: std::fmt::Display> LinkedList<T> {
     pub fn new() -> Self {
-        LinkedList { head: Box::new(None), length: 0 }
+        LinkedList {
+            head: Box::new(None),
+            length: 0,
+        }
     }
 
     pub fn append(&mut self, data: T) {
@@ -69,6 +73,32 @@ impl<T: std::fmt::Display> LinkedList<T> {
         while let Some(ref node) = **traverser {
             println!("{}", (*node).data);
             traverser = &(*node).next;
+        }
+    }
+
+    pub fn iter_mut(&mut self) -> IterMut<T> {
+        IterMut(Some(&mut (*self).head))
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::LinkedList;
+    #[test]
+    fn iter_mut_test() {
+        let mut ll = LinkedList::<i32>::new();
+
+        ll.append(1);
+        ll.append(2);
+        ll.append(3);
+        ll.append(4);
+        ll.append(5);
+        ll.append(6);
+        ll.append(7);
+
+        for n in ll.iter_mut() {
+            *n = *n + 1;
+            println!("{}", n);
         }
     }
 }
