@@ -7,6 +7,9 @@ pub struct Node<T> {
 
 impl<T> Node<T> {
     pub fn new(data: T) -> Self {
-        Node { data, next: Box::new(None) }
+        Node {
+            data,
+            next: Box::new(None),
+        }
     }
 }
