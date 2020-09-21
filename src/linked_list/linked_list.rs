@@ -1,5 +1,6 @@
 use super::errors::*;
 use super::iter_mut::*;
+use super::iter::*;
 use super::node::*;
 
 pub struct LinkedList<T> {
@@ -7,7 +8,7 @@ pub struct LinkedList<T> {
     pub length: usize,
 }
 
-impl<T: std::fmt::Display> LinkedList<T> {
+impl<T> LinkedList<T> {
     pub fn new() -> Self {
         LinkedList {
             head: Box::new(None),
@@ -67,38 +68,41 @@ impl<T: std::fmt::Display> LinkedList<T> {
         */
     }
 
-    pub fn traverse(&self) {
-        let mut traverser = &self.head;
-
-        while let Some(ref node) = **traverser {
-            println!("{}", (*node).data);
-            traverser = &(*node).next;
-        }
-    }
-
     pub fn iter_mut(&mut self) -> IterMut<T> {
         IterMut(Some(&mut (*self).head))
+    }
+
+    pub fn iter(&self) -> Iter<T> {
+        Iter(&(*self).head)
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::LinkedList;
+
+    fn get_new_linked_list_with_values<T: Copy>(vec: & Vec<T>) -> LinkedList::<T> {
+        let mut linked_list = LinkedList::<T>::new();
+
+        for element in vec.iter() {
+            linked_list.append(*element);
+        }
+
+        return linked_list;
+    }
+
     #[test]
     fn iter_mut_test() {
-        let mut ll = LinkedList::<i32>::new();
+        let test_vector = vec![1, 2, 3, 4, 5];
 
-        ll.append(1);
-        ll.append(2);
-        ll.append(3);
-        ll.append(4);
-        ll.append(5);
-        ll.append(6);
-        ll.append(7);
+        let mut linked_list = get_new_linked_list_with_values(&test_vector);
 
-        for n in ll.iter_mut() {
-            *n = *n + 1;
-            println!("{}", n);
+        let mut iter_mut = linked_list.iter_mut();
+
+        for element in test_vector.iter() {
+            let next = iter_mut.next().unwrap();
+            *next += 1;
+            assert_eq!(*element + 1, *next);
         }
     }
 }

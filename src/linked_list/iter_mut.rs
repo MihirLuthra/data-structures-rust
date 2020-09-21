@@ -11,12 +11,9 @@ impl<'a, T> Iterator for IterMut<'a, T> {
             None => return None,
         };
 
-        match **some_node {
-            Some(ref mut node) => {
-                (*self).0 = Some(&mut node.next);
-                Some(&mut node.data)
-            }
-            None => None,
-        }
+        (**some_node).as_mut().map(|node| {
+            (*self).0 = Some(&mut (*node).next);
+            &mut (*node).data
+        })
     }
 }
