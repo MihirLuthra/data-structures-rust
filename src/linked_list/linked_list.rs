@@ -4,6 +4,7 @@ use super::iter::*;
 use super::into_iter::*;
 use super::node::*;
 
+#[derive(Debug)]
 pub struct LinkedList<T> {
     head: Next<T>,
     pub length: usize,
@@ -139,4 +140,12 @@ mod test {
         }
     }
 
+    #[test]
+    fn fmt_display_test() {
+        let test_vector = vec![1, 2, 3, 4, 5];
+
+        let linked_list = get_new_linked_list_with_values(&test_vector);
+
+        assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 3 -> 4 -> 5 -> None");
+    }
 }

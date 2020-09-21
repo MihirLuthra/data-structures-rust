@@ -1,5 +1,6 @@
 pub type Next<T> = Box<Option<Node<T>>>;
 
+#[derive(Debug)]
 pub struct Node<T> {
     pub data: T,
     pub next: Next<T>,
