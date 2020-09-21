@@ -105,4 +105,18 @@ mod test {
             assert_eq!(*element + 1, *next);
         }
     }
+
+    #[test]
+    fn iter_test() {
+        let test_vector = vec![1, 2, 3, 4, 5];
+
+        let linked_list = get_new_linked_list_with_values(&test_vector);
+
+        let mut iter = linked_list.iter();
+
+        for element in test_vector.iter() {
+            let next = iter.next().unwrap();
+            assert_eq!(*element, *next);
+        }
+    }
 }
