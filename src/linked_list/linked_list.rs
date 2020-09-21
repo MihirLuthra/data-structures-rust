@@ -1,6 +1,7 @@
 use super::errors::*;
 use super::iter_mut::*;
 use super::iter::*;
+use super::into_iter::*;
 use super::node::*;
 
 pub struct LinkedList<T> {
@@ -75,6 +76,10 @@ impl<T> LinkedList<T> {
     pub fn iter(&self) -> Iter<T> {
         Iter(&(*self).head)
     }
+
+    pub fn into_iter(self) -> IntoIter<T> {
+        IntoIter(self.head)
+    }
 }
 
 #[cfg(test)]
@@ -119,4 +124,19 @@ mod test {
             assert_eq!(*element, *next);
         }
     }
+
+    #[test]
+    fn into_iter_test() {
+        let test_vector = vec![1, 2, 3, 4, 5];
+
+        let linked_list = get_new_linked_list_with_values(&test_vector);
+
+        let mut into_iter = linked_list.into_iter();
+
+        for element in test_vector.iter() {
+            let next = into_iter.next().unwrap();
+            assert_eq!(*element, next);
+        }
+    }
+
 }

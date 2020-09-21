@@ -3,6 +3,7 @@ mod node;
 mod errors;
 mod iter_mut;
 mod iter;
+mod into_iter;
 mod linked_list;
 
 pub use errors::*;
