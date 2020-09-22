@@ -94,6 +94,36 @@ impl<T> LinkedList<T> {
 
         Ok(())
     }
+
+    pub fn delete_where<F: FnMut(&T) -> bool>(&mut self, mut f: F) -> Result<(), Error> {
+        let mut iter_mut = (*self).iter_mut();
+        let mut counter = 0;
+
+        loop {
+            // either the iterator contains None or iterator points to end element i.e. None
+            if iter_mut.0.is_none() || (**(iter_mut.0.as_ref().unwrap())).is_none() {
+                break;
+            }
+
+            let ref node_ref = *(***(iter_mut.0.as_ref().unwrap())).as_ref().unwrap();
+
+            if f(&(*node_ref).data) {
+                counter += 1;
+
+                let deleted_node = std::mem::replace(&mut (***(iter_mut.0.as_mut().unwrap())), None);
+                ***(iter_mut.0.as_mut().unwrap()) = *(deleted_node.unwrap().next);
+            } else {
+                iter_mut.next();
+            }
+        }
+
+        if counter == 0 {
+            Err(Error::ElementDoesNotExist)
+        } else {
+            (*self).length -= counter;
+            Ok(())
+        }
+    }
 }
 
 // ITERATORS
@@ -206,5 +236,20 @@ mod test {
         }
 
         assert_eq!(linked_list.length, 3);
+    }
+
+    #[test]
+    fn delete_where_test() {
+        let test_vector = vec![1, 2, 3, 4, 5];
+
+        let mut linked_list = get_new_linked_list_with_values(&test_vector);
+
+        let mut counter = 3;
+        linked_list.delete_where(move |_element| {
+            counter -= 1;
+            counter > -1
+        }).expect("Unexpected error");
+
+        assert_eq!(format!("{}", linked_list), "HEAD -> 4 -> 5 -> None");
     }
 }
