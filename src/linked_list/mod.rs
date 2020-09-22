@@ -7,6 +7,9 @@ mod iter;
 mod iter_mut;
 mod linked_list;
 
+#[cfg(test)]
+mod tests;
+
 pub use errors::*;
 pub use fmt_display_linked_list::*;
 pub use into_iter::*;
