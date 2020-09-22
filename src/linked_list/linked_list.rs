@@ -110,7 +110,8 @@ impl<T> LinkedList<T> {
             if f(&(*node_ref).data) {
                 counter += 1;
 
-                let deleted_node = std::mem::replace(&mut (***(iter_mut.0.as_mut().unwrap())), None);
+                let deleted_node =
+                    std::mem::replace(&mut (***(iter_mut.0.as_mut().unwrap())), None);
                 ***(iter_mut.0.as_mut().unwrap()) = *(deleted_node.unwrap().next);
             } else {
                 iter_mut.next();
@@ -245,10 +246,12 @@ mod test {
         let mut linked_list = get_new_linked_list_with_values(&test_vector);
 
         let mut counter = 3;
-        linked_list.delete_where(move |_element| {
-            counter -= 1;
-            counter > -1
-        }).expect("Unexpected error");
+        linked_list
+            .delete_where(move |_element| {
+                counter -= 1;
+                counter > -1
+            })
+            .expect("Unexpected error");
 
         assert_eq!(format!("{}", linked_list), "HEAD -> 4 -> 5 -> None");
     }
