@@ -1,7 +1,7 @@
 use super::errors::*;
-use super::iter_mut::*;
-use super::iter::*;
 use super::into_iter::*;
+use super::iter::*;
+use super::iter_mut::*;
 use super::node::*;
 
 #[derive(Debug)]
@@ -10,6 +10,7 @@ pub struct LinkedList<T> {
     pub length: usize,
 }
 
+// MAIN
 impl<T> LinkedList<T> {
     pub fn new() -> Self {
         LinkedList {
@@ -17,7 +18,10 @@ impl<T> LinkedList<T> {
             length: 0,
         }
     }
+}
 
+// INSERTION
+impl<T> LinkedList<T> {
     pub fn append(&mut self, data: T) {
         self.length += 1;
 
@@ -61,15 +65,39 @@ impl<T> LinkedList<T> {
         if let Some(ref mut node) = *(self.head) {
             *((*node).next) = prev_val;
         }
-
-        // This method works too
-        /*
-        let mut new_node = Node::new(data);
-        std::mem::swap(&mut *(new_node.next), &mut *self.head);
-        *self.head = Some(new_node);
-        */
     }
+}
 
+// DELETION
+impl<T> LinkedList<T> {
+    pub fn delete_at_posn(&mut self, posn: usize) -> Result<(), Error> {
+        if posn >= (*self).length {
+            return Err(Error::PositionOutOfBounds(posn, (*self).length));
+        }
+
+        (*self).length -= 1;
+
+        let mut counter = 0;
+        let mut iter_mut = (*self).iter_mut();
+
+        while counter < posn {
+            counter += 1;
+            iter_mut.next();
+        }
+
+        iter_mut.0.map(|next| {
+            **next = match std::mem::replace(&mut (**next), None) {
+                Some(node) => *(node.next),
+                None => None,
+            };
+        });
+
+        Ok(())
+    }
+}
+
+// ITERATORS
+impl<T> LinkedList<T> {
     pub fn iter_mut(&mut self) -> IterMut<T> {
         IterMut(Some(&mut (*self).head))
     }
@@ -87,7 +115,7 @@ impl<T> LinkedList<T> {
 mod test {
     use super::LinkedList;
 
-    fn get_new_linked_list_with_values<T: Copy>(vec: & Vec<T>) -> LinkedList::<T> {
+    fn get_new_linked_list_with_values<T: Copy>(vec: &Vec<T>) -> LinkedList<T> {
         let mut linked_list = LinkedList::<T>::new();
 
         for element in vec.iter() {
@@ -146,6 +174,37 @@ mod test {
 
         let linked_list = get_new_linked_list_with_values(&test_vector);
 
-        assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 3 -> 4 -> 5 -> None");
+        assert_eq!(
+            format!("{}", linked_list),
+            "HEAD -> 1 -> 2 -> 3 -> 4 -> 5 -> None"
+        );
+    }
+
+    #[test]
+    fn delete_at_posn_test() {
+        let test_vector = vec![1, 2, 3, 4, 5];
+
+        let mut linked_list = get_new_linked_list_with_values(&test_vector);
+
+        linked_list
+            .delete_at_posn(2)
+            .expect("Error while deleting from 2nd posn");
+        assert_eq!(
+            format!("{}", linked_list),
+            "HEAD -> 1 -> 2 -> 4 -> 5 -> None"
+        );
+
+        linked_list
+            .delete_at_posn(2)
+            .expect("Error while deleting from 2nd posn");
+        assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 5 -> None");
+
+        if let Ok(_) = linked_list.delete_at_posn(3) {
+            panic!(
+                "Should have caused error as we are trying to delete at a posn greater than length"
+            );
+        }
+
+        assert_eq!(linked_list.length, 3);
     }
 }
