@@ -7,8 +7,8 @@ impl<'a, T> Iterator for Iter<'a, T> {
 
     fn next<'b>(&'b mut self) -> Option<&'a T> {
         (**(*self).0).as_ref().map(|node| {
-            (*self).0 = & (*node).next;
-            & (*node).data
+            (*self).0 = &(*node).next;
+            &(*node).data
         })
     }
 }

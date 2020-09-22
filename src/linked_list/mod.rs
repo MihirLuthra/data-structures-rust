@@ -8,9 +8,8 @@ mod iter_mut;
 mod linked_list;
 
 pub use errors::*;
-pub use linked_list::*;
-pub use iter::*;
-pub use into_iter::*;
-pub use iter_mut::*;
 pub use fmt_display_linked_list::*;
-
+pub use into_iter::*;
+pub use iter::*;
+pub use iter_mut::*;
+pub use linked_list::*;
