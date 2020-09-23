@@ -74,6 +74,7 @@ fn delete_at_posn_test() {
     linked_list
         .delete_at_posn(2)
         .expect("Error while deleting from 2nd posn");
+
     assert_eq!(
         format!("{}", linked_list),
         "HEAD -> 1 -> 2 -> 4 -> 5 -> None"
@@ -106,4 +107,18 @@ fn delete_where_test() {
         .expect("Unexpected error");
 
     assert_eq!(format!("{}", linked_list), "HEAD -> 4 -> 5 -> None");
+}
+
+#[test]
+fn reverse_test() {
+    let test_vector = vec![1, 2, 3, 4, 5];
+
+    let linked_list = get_new_linked_list_with_values(&test_vector);
+
+    let reversed_linked_list = linked_list.reverse();
+
+    assert_eq!(
+        format!("{}", reversed_linked_list),
+        "HEAD -> 5 -> 4 -> 3 -> 2 -> 1 -> None"
+    );
 }

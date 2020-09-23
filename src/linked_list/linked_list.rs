@@ -127,6 +127,19 @@ impl<T> LinkedList<T> {
     }
 }
 
+//OTHERS
+impl<T> LinkedList<T> {
+    pub fn reverse(self) -> LinkedList<T> {
+        let mut reversed_linked_list = LinkedList::<T>::new();
+
+        for element in self.into_iter() {
+            reversed_linked_list.prepend(element);
+        }
+
+        reversed_linked_list
+    }
+}
+
 // ITERATORS
 impl<T> LinkedList<T> {
     pub fn iter_mut(&mut self) -> IterMut<T> {
