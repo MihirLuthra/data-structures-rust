@@ -1,7 +1,9 @@
 [package]
-name = "linked_list_lib"
+name = "data-structures"
+license = "CC-BY-1.0"
 version = "0.1.0"
-authors = ["Mihir Luthra <1999mihir.luthra@gmail.com>"]
+authors = ["Mihir Luthra <luthramihir708@gmail.com>"]
+description = "A simple data structures crate in rust, WIP"
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
