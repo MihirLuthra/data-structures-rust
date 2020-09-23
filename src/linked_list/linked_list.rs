@@ -7,6 +7,7 @@ use super::node::*;
 #[derive(Debug)]
 pub struct LinkedList<T> {
     head: Next<T>,
+    /// Get length of linked list
     pub length: usize,
 }
 
@@ -67,6 +68,11 @@ impl<T> LinkedList<T> {
     ///
     ///  assert_eq!(format!("{}", linked_list), "HEAD -> 22 -> 33 -> 44 -> None");
     /// ```
+    ///
+    /// # Errors
+    ///
+    /// The function returns Error::PositionOutOfBounds(posn, len)
+    /// if position to be inserted is >= linked list length.
     pub fn insert(&mut self, data: T, posn: usize) -> Result<(), Error> {
         self.length += 1;
 
@@ -134,6 +140,12 @@ impl<T> LinkedList<T> {
     ///
     ///  assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 4 -> None");
     /// ```
+    ///
+    /// # Errors
+    ///
+    /// The function returns Error::PositionOutOfBounds(posn, len)
+    /// if position to be deleted is >= linked list length.
+
     pub fn delete_at_posn(&mut self, posn: usize) -> Result<(), Error> {
         if posn >= (*self).length {
             return Err(Error::PositionOutOfBounds(posn, (*self).length));
@@ -186,6 +198,11 @@ impl<T> LinkedList<T> {
     ///  
     ///  assert_eq!(format!("{}", linked_list), "HEAD -> 3 -> None");
     /// ```
+    ///
+    /// # Errors
+    ///
+    /// The function returns Error::ElementDoesNotExist
+    /// if no element of linked list returns true with closure f.
     pub fn delete_where<F: FnMut(&T) -> bool>(&mut self, mut f: F) -> Result<(), Error> {
         let mut iter_mut = (*self).iter_mut();
         let mut counter = 0;
