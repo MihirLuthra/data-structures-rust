@@ -12,6 +12,9 @@ pub struct LinkedList<T> {
 
 // MAIN
 impl<T> LinkedList<T> {
+    ///
+    /// Get new LinkedList
+    ///
     pub fn new() -> Self {
         LinkedList {
             head: Box::new(None),
@@ -22,6 +25,20 @@ impl<T> LinkedList<T> {
 
 // INSERTION
 impl<T> LinkedList<T> {
+    ///
+    /// Append to the end of the linked list.
+    /// Time Complexity: O(n)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 3 -> None");
+    /// ```
     pub fn append(&mut self, data: T) {
         self.length += 1;
 
@@ -36,6 +53,20 @@ impl<T> LinkedList<T> {
         **traverser = new_node;
     }
 
+    ///
+    /// Insert elemet at posn in the linked list.
+    /// Time Complexity: O(posn)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.insert(44, 0);
+    ///  linked_list.insert(22, 0);
+    ///  linked_list.insert(33, 1);
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 22 -> 33 -> 44 -> None");
+    /// ```
     pub fn insert(&mut self, data: T, posn: usize) -> Result<(), Error> {
         self.length += 1;
 
@@ -57,6 +88,20 @@ impl<T> LinkedList<T> {
         }
     }
 
+    ///
+    /// Add element to the beginning of the linked list.
+    /// Time Complexity: O(1)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.prepend(3);
+    ///  linked_list.prepend(2);
+    ///  linked_list.prepend(1);
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 3 -> None");
+    /// ```
     pub fn prepend(&mut self, data: T) {
         self.length += 1;
 
@@ -70,6 +115,23 @@ impl<T> LinkedList<T> {
 
 // DELETION
 impl<T> LinkedList<T> {
+    ///
+    /// Delete element at the given position.
+    /// Time Complexity: O(posn)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///  linked_list.append(4);
+    ///
+    ///  linked_list.delete_at_posn(2);
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 1 -> 2 -> 4 -> None");
+    /// ```
     pub fn delete_at_posn(&mut self, posn: usize) -> Result<(), Error> {
         if posn >= (*self).length {
             return Err(Error::PositionOutOfBounds(posn, (*self).length));
@@ -95,6 +157,32 @@ impl<T> LinkedList<T> {
         Ok(())
     }
 
+    ///
+    /// Delete element at the given position.
+    /// Time Complexity: O(n)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///  linked_list.append(4);
+    ///
+    ///  // delete first 2 elements
+    ///  let mut counter = 2;
+    ///  linked_list.delete_where(move |element| {
+    ///     counter -= 1;
+    ///     counter >= 0
+    ///  });
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 3 -> 4 -> None");
+    ///
+    ///  linked_list.delete_where(|element| element % 2 == 0);
+    ///  
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 3 -> None");
+    /// ```
     pub fn delete_where<F: FnMut(&T) -> bool>(&mut self, mut f: F) -> Result<(), Error> {
         let mut iter_mut = (*self).iter_mut();
         let mut counter = 0;
@@ -129,6 +217,23 @@ impl<T> LinkedList<T> {
 
 //OTHERS
 impl<T> LinkedList<T> {
+    ///
+    /// Returns reversed linked list
+    /// Time Complexity: O(n)
+    ///
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///  linked_list.append(4);
+    ///
+    ///  linked_list = linked_list.reverse();
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 4 -> 3 -> 2 -> 1 -> None");
+    /// ```
     pub fn reverse(self) -> LinkedList<T> {
         let mut reversed_linked_list = LinkedList::<T>::new();
 
