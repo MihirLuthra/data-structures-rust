@@ -251,15 +251,61 @@ impl<T> LinkedList<T> {
 
 // ITERATORS
 impl<T> LinkedList<T> {
-    /// Produces
+    /// Produces mutable iterator
+    ///
+    /// # Example
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///  linked_list.append(4);
+    ///
+    ///  linked_list.iter_mut().for_each(|element| *element += 1);
+    ///
+    ///  assert_eq!(format!("{}", linked_list), "HEAD -> 2 -> 3 -> 4 -> 5 -> None");
+    /// ```
     pub fn iter_mut(&mut self) -> IterMut<T> {
         IterMut(Some(&mut (*self).head))
     }
 
+    /// Produces am immutable iterator
+    ///
+    /// # Example
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///
+    ///  let mut vector = Vec::new();
+    ///
+    ///  for element in linked_list.iter() {
+    ///     vector.push(*element);
+    ///  }
+    ///
+    ///  assert_eq!(vector, [1, 2, 3]);
+    /// ```
     pub fn iter(&self) -> Iter<T> {
         Iter(&(*self).head)
     }
 
+    /// Consumes the linked list and gives an iterator.
+    ///
+    /// # Example
+    /// ```
+    ///# use self::linked_list_lib::linked_list::*;
+    ///  let mut linked_list = LinkedList::<i32>::new();
+    ///  linked_list.append(1);
+    ///  linked_list.append(2);
+    ///  linked_list.append(3);
+    ///
+    ///  let mut vector: Vec<i32> = linked_list.into_iter().collect();
+    ///
+    ///  assert_eq!(vector, [1, 2, 3]);
+    /// ```
     pub fn into_iter(self) -> IntoIter<T> {
         IntoIter(self.head)
     }
