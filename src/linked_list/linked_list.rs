@@ -12,9 +12,7 @@ pub struct LinkedList<T> {
 
 // MAIN
 impl<T> LinkedList<T> {
-    ///
     /// Get new LinkedList
-    ///
     pub fn new() -> Self {
         LinkedList {
             head: Box::new(None),
@@ -25,13 +23,14 @@ impl<T> LinkedList<T> {
 
 // INSERTION
 impl<T> LinkedList<T> {
-    ///
     /// Append to the end of the linked list.
-    /// Time Complexity: O(n)
     ///
+    /// # Time Complexity
+    /// O(n)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -53,13 +52,14 @@ impl<T> LinkedList<T> {
         **traverser = new_node;
     }
 
-    ///
     /// Insert elemet at posn in the linked list.
-    /// Time Complexity: O(posn)
     ///
+    /// # Time Complexity
+    /// O(posn)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.insert(44, 0);
     ///  linked_list.insert(22, 0);
@@ -88,13 +88,14 @@ impl<T> LinkedList<T> {
         }
     }
 
-    ///
     /// Add element to the beginning of the linked list.
-    /// Time Complexity: O(1)
     ///
+    /// # Time Complexity
+    /// O(1)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.prepend(3);
     ///  linked_list.prepend(2);
@@ -115,13 +116,14 @@ impl<T> LinkedList<T> {
 
 // DELETION
 impl<T> LinkedList<T> {
-    ///
     /// Delete element at the given position.
-    /// Time Complexity: O(posn)
     ///
+    /// # Time Complexity
+    /// O(posn)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -157,13 +159,14 @@ impl<T> LinkedList<T> {
         Ok(())
     }
 
-    ///
     /// Delete element at the given position.
-    /// Time Complexity: O(n)
     ///
+    /// # Time Complexity
+    /// O(n)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -217,13 +220,14 @@ impl<T> LinkedList<T> {
 
 //OTHERS
 impl<T> LinkedList<T> {
-    ///
     /// Returns reversed linked list
-    /// Time Complexity: O(n)
     ///
+    /// # Time Complexity
+    /// O(n)
+    ///
+    /// # Example
     /// ```
     ///# use self::linked_list_lib::linked_list::*;
-    ///
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -247,6 +251,7 @@ impl<T> LinkedList<T> {
 
 // ITERATORS
 impl<T> LinkedList<T> {
+    /// Produces
     pub fn iter_mut(&mut self) -> IterMut<T> {
         IterMut(Some(&mut (*self).head))
     }
