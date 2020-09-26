@@ -1,1 +1,2 @@
+mod bst;
 mod node;

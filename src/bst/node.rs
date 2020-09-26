@@ -1,6 +1,6 @@
-type Child<T> = Option<Box<Node<T>>>;
+pub type Child<T> = Option<Box<Node<T>>>;
 
-struct Node<T: std::cmp::Ord> {
+pub struct Node<T: std::cmp::Ord> {
     data: T,
     left: Child<T>,
     right: Child<T>,
