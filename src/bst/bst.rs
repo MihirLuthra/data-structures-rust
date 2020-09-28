@@ -11,22 +11,21 @@ impl<T: std::cmp::Ord> Bst<T> {
         }
     }
     pub fn insert(&mut self, data: T) {
-        Bst::<T>::_insert(&mut (*self).root, data);
-    }
-
-    fn _insert(root: &mut Child<T>, data: T) {
-        match **root {
-            Some(ref mut node) => {
-                if (*node).data > data {
-                    Bst::<T>::_insert(&mut (*node).left, data);
-                } else {
-                    Bst::<T>::_insert(&mut (*node).right, data);
+        fn insert<U: std::cmp::Ord>(root: &mut Child<U>, data: U) {
+            match **root {
+                Some(ref mut node) => {
+                    if (*node).data > data {
+                        insert(&mut (*node).left, data);
+                    } else {
+                        insert(&mut (*node).right, data);
+                    }
                 }
-            }
-            None => {
-                let new_node = Node::<T>::new(data);
-                **root = Some(new_node);
-            }
-        };
+                None => {
+                    let new_node = Node::<U>::new(data);
+                    **root = Some(new_node);
+                }
+            };
+        }
+        insert(&mut (*self).root, data);
     }
 }
