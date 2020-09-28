@@ -31,7 +31,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -60,7 +60,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.insert(44, 0);
     ///  linked_list.insert(22, 0);
@@ -101,7 +101,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.prepend(3);
     ///  linked_list.prepend(2);
@@ -129,7 +129,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -178,7 +178,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -244,7 +244,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -272,7 +272,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -291,7 +291,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
@@ -313,7 +313,7 @@ impl<T> LinkedList<T> {
     ///
     /// # Example
     /// ```
-    ///# use self::linked_list_lib::linked_list::*;
+    ///# use crate::data_structures::linked_list::*;
     ///  let mut linked_list = LinkedList::<i32>::new();
     ///  linked_list.append(1);
     ///  linked_list.append(2);
