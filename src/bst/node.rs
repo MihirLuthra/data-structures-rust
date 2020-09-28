@@ -1,17 +1,17 @@
-pub type Child<T> = Option<Box<Node<T>>>;
+pub type Child<T> = Box<Option<Node<T>>>;
 
 pub struct Node<T: std::cmp::Ord> {
-    data: T,
-    left: Child<T>,
-    right: Child<T>,
+    pub data: T,
+    pub left: Child<T>,
+    pub right: Child<T>,
 }
 
 impl<T: std::cmp::Ord> Node<T> {
-    fn new(data: T) -> Self {
+    pub fn new(data: T) -> Self {
         Node {
             data,
-            left: None,
-            right: None,
+            left: Box::new(None),
+            right: Box::new(None),
         }
     }
 }

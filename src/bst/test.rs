@@ -1,4 +1,5 @@
 use super::bst::*;
+use super::fmt_display::*;
 
 #[test]
 fn insert() {
@@ -10,5 +11,5 @@ fn insert() {
     bst.insert(100);
     bst.insert(23);
 
-    assert_eq!(format!("{}", bst), "5 23 27 55 100");
+    assert_eq!(format!("{}", bst), "5 23 27 55 100 ");
 }
