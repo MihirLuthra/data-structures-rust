@@ -1,5 +1,6 @@
 pub type Child<T> = Box<Option<Node<T>>>;
 
+#[derive(Debug)]
 pub struct Node<T: std::cmp::Ord> {
     pub data: T,
     pub left: Child<T>,

@@ -1,5 +1,6 @@
 use super::node::*;
 
+#[derive(Debug)]
 pub struct Bst<T: std::cmp::Ord> {
     pub root: Child<T>,
 }
@@ -67,5 +68,24 @@ impl<T: std::cmp::Ord> Bst<T> {
         }
 
         delete(&mut (*self).root, data);
+    }
+
+    pub fn search(&self, data: T) -> bool {
+        fn search<U: std::cmp::Ord>(root: &Child<U>, data: U) -> bool {
+            match **root {
+                Some(ref node) => {
+                    if (*node).data > data {
+                        search(&(*node).left, data)
+                    } else if (*node).data < data {
+                        search(&(*node).right, data)
+                    } else {
+                        true
+                    }
+                }
+                None => false,
+            }
+        }
+
+        search(&(*self).root, data)
     }
 }
