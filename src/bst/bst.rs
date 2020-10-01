@@ -51,18 +51,14 @@ impl<T: std::cmp::Ord> Bst<T> {
                          */
 
                         (**root).take().map(|node| {
-                            if (*(node.right)).is_none() {
-                                **root = *(node.left);
-                            } else {
-                                **root = *(node.right);
-                                let mut traverser = &mut *root;
+                            **root = *(node.right);
+                            let mut traverser = &mut *root;
 
-                                while let Some(ref mut node) = **traverser {
-                                    traverser = &mut (*node).left;
-                                }
-
-                                **traverser = *(node.left);
+                            while let Some(ref mut node) = **traverser {
+                                traverser = &mut (*node).left;
                             }
+
+                            **traverser = *(node.left);
                         });
                     }
                 }
